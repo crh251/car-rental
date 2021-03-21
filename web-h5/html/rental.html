@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>car rental</title>
+    <script src="../js/global.js"></script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../component/rental/rental.css">
+</head>
+<body>
+
+<script>
+    ajaxGet("../component/rental/rental.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/rental/rental.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+</script>
+</body>
+</html>

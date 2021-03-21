@@ -1,19 +1,25 @@
 package laijh.carrental.common;
 
-import laijh.carrental.dto.UserInfo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
+import lombok.experimental.Tolerate;
 
 /**
  * @author laijh25319
  * @date 2021/3/20 14:32
  */
 @Data
+@SuperBuilder
 public class BaseRequest {
 
     /**
-     * 登陆token
+     * token
      */
+    @ApiModelProperty(value = "token", required = true)
     protected String token;
 
-    private UserInfo user;
+    @Tolerate
+    public BaseRequest() {
+    }
 }

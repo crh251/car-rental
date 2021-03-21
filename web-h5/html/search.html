@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>音乐搜索</title>
+    <script src="../js/global.js"></script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../component/popUserInfo/popUserInfo.css">
+    <link rel="stylesheet" type="text/css" href="../component/search/search.css">
+</head>
+<body>
+
+<!--点击弹出用户头像组件-->
+<script>
+    ajaxGet("../component/popUserInfo/popUserInfo.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/popUserInfo/popUserInfo.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+</script>
+
+<!--搜索框和建议框组件-->
+<script>
+    ajaxGet("../component/search/search.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/search/search.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+</script>
+</body>
+</html>

@@ -2,6 +2,8 @@ package laijh.carrental.controller;
 
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import laijh.carrental.common.ApiResponse;
 import laijh.carrental.common.ApiResponseUtil;
 import laijh.carrental.common.RedisKeyConst;
@@ -9,17 +11,18 @@ import laijh.carrental.common.ResponseCode;
 import laijh.carrental.dao.UserInfoMapper;
 import laijh.carrental.dto.UserInfo;
 import laijh.carrental.form.LoginBack;
+import laijh.carrental.form.LoginForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +35,8 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/user")
 @Slf4j
 @Validated
+@CrossOrigin
+@Api(value = "/user")
 public class UserController {
 
     @Autowired
@@ -44,7 +49,10 @@ public class UserController {
     private final long tokenExpireTime = RedisKeyConst.DEFAULT_TOKEN_EXPIRE_TIME;
 
     @PostMapping("/login")
-    public ApiResponse<?> login(@NotBlank String username, @NotBlank String password) {
+    @ApiOperation("用户登录")
+    public ApiResponse<?> login(@Validated LoginForm form) {
+
+        String username = form.getUsername(), password = form.getPassword();
 
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);

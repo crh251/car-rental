@@ -1,0 +1,17 @@
+<div xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+     class="message-user-outer-wrapper" id="message-user-outer">
+    <div class="message-wrapper"></div>
+    <div class="user-photo-wrapper"
+         v-bind:style="{ background: photoUrl, backgroundSize: '32px 32px' }"
+         v-on:click.stop="togglePop"></div>
+</div>
+
+<div v-bind:style="{ display: isDisplay ? 'block' : 'none', left: left + 'px', top: top + 'px' }"
+     class="pop-info-outer-wrapper"
+     id="pop-info">
+    <div class="big-head-img-wrapper"
+         v-bind:style="{ background: photoUrl, backgroundSize: '60px 60px' }"></div>
+    <a class="phone-info-wrapper">{{this.phone}}</a>
+    <a class="change-pwd-wrapper" v-bind:href="changePasswordUrl">修改密码</a>
+    <a class="logout-wrapper" v-on:click.stop="logout">退出</a>
+</div>

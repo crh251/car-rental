@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.experimental.Tolerate;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Date;
 
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 @Data
 @TableName("user_info")
+@ApiIgnore
 public class UserInfo {
 
     /**

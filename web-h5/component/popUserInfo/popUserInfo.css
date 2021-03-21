@@ -1,0 +1,106 @@
+.message-user-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 69px;
+    height: 34px;
+    /*border: 1px solid red;*/
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+    z-index: 10;
+}
+
+.message-wrapper {
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-size: 20px 20px;
+    background: rgba(0, 0, 0, .55) url("http://www.ieasygo.top/common/img/ui1.png") -194px -21px;
+    overflow: hidden;
+    cursor: pointer;
+    float: left;
+    margin-top: 7px;
+}
+
+.message-wrapper:hover {
+    background-color: rgba(0, 0, 0, .85);
+}
+
+.user-photo-wrapper {
+    display: block;
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+    overflow: hidden;
+    cursor: pointer;
+    float: left;
+    margin-left: 15px;
+}
+
+/*点击头像后弹出具体信息的框*/
+.pop-info-outer-wrapper {
+    display: none;
+    position: absolute;
+    width: 187px;
+    height: 110px;
+    background-image: url("http://www.ieasygo.top/common/img/head-info-background.png");
+    background-size: cover;
+    z-index: 10;
+    /*border: 1px solid red;*/
+}
+
+/*大头像图片*/
+.big-head-img-wrapper {
+    display: block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    float: left;
+    cursor: pointer;
+    margin-top: 17px;
+    margin-left: 12px;
+}
+
+/*用户手机号信息*/
+.phone-info-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    color: rgb(102, 102, 102);
+    font-size: 15px;
+    margin-top: 25px;
+    margin-left: 5px;
+    user-select: none;
+}
+
+/*修改密码*/
+.change-pwd-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    color: rgba(0, 0, 0, .55);
+    font-size: 12px;
+    margin-top: 15px;
+    margin-left: 6px;
+    text-decoration: none;
+    user-select: none;
+}
+
+/*退出按钮*/
+.logout-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    cursor: pointer;
+    color: rgba(0, 0, 0, .55);
+    font-size: 12px;
+    margin-top: 15px;
+    margin-left: 22px;
+    user-select: none;
+}
+

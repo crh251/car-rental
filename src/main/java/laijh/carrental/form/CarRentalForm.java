@@ -1,8 +1,11 @@
 package laijh.carrental.form;
 
+import io.swagger.annotations.ApiModelProperty;
 import laijh.carrental.common.BaseRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
+import lombok.experimental.Tolerate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
@@ -16,12 +19,14 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@SuperBuilder
 public class CarRentalForm extends BaseRequest {
 
     /**
      * 预订车辆型号
      */
     @NotBlank
+    @ApiModelProperty(value = "车辆型号", required = true)
     private String carModel;
 
     /**
@@ -30,6 +35,7 @@ public class CarRentalForm extends BaseRequest {
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @ApiModelProperty(value = "开始使用时间[yyyy-MM-dd HH:mm]，需要大于当前时间", required = true, example = "2020-04-01 17:00")
     private Date startTime;
 
     /**
@@ -38,5 +44,10 @@ public class CarRentalForm extends BaseRequest {
     @NotNull
     @Future
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @ApiModelProperty(value = "结束使用时间[yyyy-MM-dd HH:mm]，需要大于当前时间", required = true, example = "2020-04-01 08:00")
     private Date endTime;
+
+    @Tolerate
+    public CarRentalForm() {
+    }
 }

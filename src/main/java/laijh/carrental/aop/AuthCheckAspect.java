@@ -1,12 +1,9 @@
 package laijh.carrental.aop;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import laijh.carrental.common.ApiResponseUtil;
-import laijh.carrental.common.BaseRequest;
 import laijh.carrental.common.RedisKeyConst;
 import laijh.carrental.common.ResponseCode;
 import laijh.carrental.dao.UserInfoMapper;
-import laijh.carrental.dto.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -68,26 +65,9 @@ public class AuthCheckAspect {
             return ApiResponseUtil.genError(ResponseCode.NO_LOGIN);
         }
 
-        // 将用户信息设置进去
-        Object[] args = pjp.getArgs();
-        if (args != null && args.length > 0 && args[0] instanceof BaseRequest) {
-            BaseRequest baseRequest = (BaseRequest) args[0];
-
-            QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("id", userId);
-            UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
-            if (userInfo == null) {
-                log.error("id[{{}]对应的用户不存在！", userId);
-                return ApiResponseUtil.genError(ResponseCode.NO_LOGIN);
-            }
-
-            baseRequest.setUser(userInfo);
-        }
-
         // 重新设置超时时间
         stringRedisTemplate.expire(token2userId, tokenExpireTime, TimeUnit.SECONDS);
         stringRedisTemplate.expire(userId2token, tokenExpireTime, TimeUnit.SECONDS);
-
 
         return pjp.proceed();
     }

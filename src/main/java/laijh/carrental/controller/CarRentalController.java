@@ -1,10 +1,12 @@
 package laijh.carrental.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.ApiOperation;
 import laijh.carrental.aop.AuthCheck;
 import laijh.carrental.common.*;
 import laijh.carrental.dao.CarInfoMapper;
 import laijh.carrental.dao.CarRentalMapper;
+import laijh.carrental.dao.UserInfoMapper;
 import laijh.carrental.dto.CarInfo;
 import laijh.carrental.dto.CarRentalInfo;
 import laijh.carrental.dto.UserInfo;
@@ -15,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,9 +33,10 @@ import java.util.stream.Collectors;
  * @date 2021/3/20 14:30
  */
 @RestController
-@RequestMapping("/car_rental")
+@RequestMapping("/rental")
 @Slf4j
 @Validated
+@CrossOrigin
 public class CarRentalController {
 
     @Autowired
@@ -48,6 +52,12 @@ public class CarRentalController {
      * 所有车辆型号set集合
      */
     private volatile Set<String> carModelSet;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     @PostConstruct
     public void initCarModelSet() {
@@ -67,9 +77,10 @@ public class CarRentalController {
 
     @PostMapping("/order")
     @AuthCheck
-    public ApiResponse<?> order(@Validated CarRentalForm form) throws ParamInvalidException {
+    @ApiOperation("预订车辆")
+    public ApiResponse<?> order(@Validated CarRentalForm form) throws ParamInvalidException, NoLoginException {
 
-        UserInfo userInfo = form.getUser();
+        UserInfo userInfo = token2UserInfo(form.getToken());
         String carModel = form.getCarModel();
         Date startTime = form.getStartTime(), endTime = form.getEndTime();
         if (startTime.compareTo(endTime) >= 0) {
@@ -149,9 +160,10 @@ public class CarRentalController {
 
     @PostMapping("/cancel")
     @AuthCheck
-    public ApiResponse<?> cancel(@Validated UserCancelRentalForm form) {
+    @ApiOperation("取消车辆预订")
+    public ApiResponse<?> cancel(@Validated UserCancelRentalForm form) throws NoLoginException {
 
-        UserInfo userInfo = form.getUser();
+        UserInfo userInfo = token2UserInfo(form.getToken());
         CarRentalInfo carRental;
 
         // 用户锁
@@ -232,26 +244,47 @@ public class CarRentalController {
     }
 
     @GetMapping("/list_car_model")
+    @ApiOperation("查询所有车辆型号")
     public ApiResponse<String> listCarModel() {
 
         return ApiResponseUtil.genSuccess(carModelSet);
     }
 
-    @GetMapping("/avail/{carModel}")
-    public ApiResponse<?> listCarAvail(@PathVariable String carModel) {
+    @PostMapping("/my_car_rental")
+    @AuthCheck
+    @ApiOperation("查询我的车辆预订信息列表")
+    public ApiResponse<CarRentalInfo> listMyCarRental(BaseRequest baseRequest) throws NoLoginException {
 
-        if (!carModelSet.contains(carModel)) {
-            return ApiResponseUtil.genError(ResponseCode.CAR_MODEL_NOT_EXIST);
-        }
+        UserInfo user = token2UserInfo(baseRequest.getToken());
 
         QueryWrapper<CarRentalInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.ge("end_time", new Date());
-        queryWrapper.eq("car_model", carModel);
-        queryWrapper.eq("status", CarRentalConst.CarRentalStatus.NORMAL.getVal());
+        queryWrapper.eq("user_id", user.getId());
+        queryWrapper.orderByDesc("id");
         List<CarRentalInfo> carRentalList = carRentalMapper.selectList(queryWrapper);
 
+        return ApiResponseUtil.genSuccess(carRentalList);
+    }
 
-        return ApiResponseUtil.genSuccess(null);
+    /**
+     * token->用户信息
+     *
+     * @param token 用户token
+     * @return 用户信息
+     * @throws NoLoginException token失效
+     */
+    public UserInfo token2UserInfo(String token) throws NoLoginException {
+
+        // redis中token对应的用户信息
+        final String token2userId = RedisKeyConst.TOKEN2_USER_ID_PREFIX + token;
+
+        String userId = stringRedisTemplate.opsForValue().get(token2userId);
+        if (StringUtils.isBlank(userId)) {
+            throw new NoLoginException();
+        }
+
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", userId);
+        return userInfoMapper.selectOne(queryWrapper);
     }
 
 

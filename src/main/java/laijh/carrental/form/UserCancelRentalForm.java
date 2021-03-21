@@ -1,5 +1,6 @@
 package laijh.carrental.form;
 
+import io.swagger.annotations.ApiModelProperty;
 import laijh.carrental.common.BaseRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,5 +18,6 @@ public class UserCancelRentalForm extends BaseRequest {
 
     @NotNull
     @Min(1)
+    @ApiModelProperty(value = "车辆预订id", required = true)
     private Long carRentalId;
 }

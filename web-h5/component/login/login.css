@@ -1,0 +1,293 @@
+/*总外框*/
+.login-outer-wrapper {
+    display: none;
+    position: absolute;
+    width: 356px;
+    height: 430px;
+    min-width: 356px;
+    min-height: 430px;
+    background-color: #fff;
+    user-select: none;
+}
+
+/*登录框的头*/
+.login-head-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid yellow;*/
+    width: 356px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    cursor: move;
+}
+
+.login-type-hint-wrapper {
+    display: block;
+    position: absolute;
+    /*border: 1px solid black;*/
+    width: 120px;
+    height: 20px;
+    bottom: 0;
+    left: 30px;
+    user-select: none;
+}
+
+/*关闭登录弹框*/
+.close-pop-login-wrapper {
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 5px;
+    right: 5px;
+    /*border: 1px solid black;*/
+    background: url("../../img/ui7.png") -56px -48px;
+    cursor: pointer;
+}
+
+.close-pop-login-wrapper:hover {
+    background: url("../../img/ui7.png") -72px -48px;
+}
+
+/*错误提示信息*/
+.error-hint-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid black;*/
+    width: 300px;
+    height: 20px;
+    margin: 8px 0 0 28px;
+    font-size: 14px;
+    line-height: 20px;
+    color: red;
+}
+
+/*手机号密码登录总外框*/
+.phone-pwd-login-outer-wrapper {
+    position: relative;
+    width: 356px;
+    height: 225px;
+    margin: 0;
+    padding: 0;
+    /*border: 1px solid black;*/
+}
+
+/*手机号输入框样式*/
+.phone-input-wrapper {
+    display: block;
+    position: relative;
+    border: 1px solid #ddd;
+    width: 293px;
+    height: 42px;
+    line-height: 42px;
+    margin: auto;
+    padding: 0 0 0 5px;
+    font-size: 14px;
+    color: #666;
+    outline: none;
+}
+
+/*密码登录密码输入框样式*/
+.pwd-input-wrapper {
+    display: block;
+    position: relative;
+    border: 1px solid #ddd;
+    width: 293px;
+    height: 42px;
+    line-height: 42px;
+    margin: auto;
+    padding: 0 0 0 5px;
+    top: 20px;
+    font-size: 14px;
+    color: #666;
+    outline: none;
+}
+
+/*这个包含图片验证码输入框和验证码图片*/
+.img-verify-outer-wrapper {
+    display: block;
+    position: relative;
+    border: 1px solid #ddd;
+    width: 293px;
+    height: 42px;
+    margin: auto;
+    padding: 0 0 0 5px;
+    top: 40px;
+    background-color: white;
+}
+
+/*图片验证码的输入框*/
+.img-verify-input-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid blue;*/
+    border: none;
+    width: 160px;
+    height: 42px;
+    line-height: 42px;
+    padding: 0;
+    outline: none;
+    font-size: 14px;
+    float: left;
+    color: #666;
+}
+
+/*图片验证码的图片*/
+.img-verify-img-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid black;*/
+    float: right;
+    width: 130px;
+    height: 42px;
+    background-size: 130px 42px;
+    cursor: pointer;
+}
+
+/*登录按钮样式*/
+.submit-wrapper {
+    display: block;
+    position: relative;
+    width: 300px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    margin: auto;
+    color: rgb(255, 255, 255);
+    background-color: #4490f7;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+}
+
+.submit-wrapper:hover {
+    font-size: 17px;
+    box-shadow: 1px 1px 1px #317ef3;
+}
+
+/*忘记密码/注册/更换登录方式 外框*/
+.forget-register-change-outer-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid red;*/
+    width: 300px;
+    height: 20px;
+    margin: 20px 0 0 28px;
+    padding: 0;
+}
+
+.forget-register-change-outer-wrapper a {
+    color: rgb(46, 130, 255);
+    line-height: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*更改登录方式*/
+.change-login-type-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid red;*/
+    float: right;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/*短信验证码快捷登录总外框*/
+.sms-quick-login-outer-wrapper {
+    position: relative;
+    width: 356px;
+    height: 160px;
+    margin: 0;
+    padding: 0;
+    /*border: 1px solid black;*/
+}
+
+/*输入短信验证码外框*/
+.sms-verify-outer-wrapper {
+    display: block;
+    position: relative;
+    border: 1px solid #ddd;
+    width: 293px;
+    height: 42px;
+    margin: auto;
+    padding: 0 0 0 5px;
+    top: 20px;
+    background-color: white;
+}
+
+/*短信验证码输入框*/
+.sms-verify-input-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid #ddd;*/
+    border: none;
+    border-radius: 5px;
+    width: 160px;
+    height: 42px;
+    line-height: 42px;
+    padding: 0;
+    outline: none;
+    font-size: 14px;
+    float: left;
+    color: #666;
+}
+
+/*获取短信验证码按钮*/
+.get-sms-code-wrapper {
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 42px;
+    float: right;
+    background-color: #666666;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: lighter;
+    outline: none;
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 221, 221);
+    border-left: none;
+}
+
+.get-sms-code-wrapper:hover {
+    font-size: 16px;
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
+.get-sms-code-disabled-wrapper {
+    display: block;
+    position: relative;
+    border: none;
+    float: right;
+    width: 100px;
+    height: 42px;
+    background-color: gray;
+    cursor: default;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+    color: lightgray;
+}
+
+.get-sms-code-disabled-wrapper:hover {
+    cursor: default;
+    font-size: 15px;
+    font-weight: bold;
+    color: lightgray;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /*background-image: url("");*/
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

@@ -33,24 +33,16 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Api Documentation")
-                .description("Api Documentation")
+                .title("Car Rental Api Documentation")
+                .description("this is car rental project doc.")
                 .termsOfServiceUrl("https://ieasygo.top")
                 .contact(new Contact("laijh", "https://ieasygo.top", "crh5251@163.com"))
-                .license("Apache 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.txt")
                 .version("1.0.0")
                 .build();
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-//        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-//        registry.addResourceHandler("swagger-ui.html")
-//                .addResourceLocations("classpath:/META-INF/resources/");
-//        registry.addResourceHandler("/webjars/**")
-//                .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");

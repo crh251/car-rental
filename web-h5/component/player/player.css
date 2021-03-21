@@ -1,0 +1,223 @@
+/*总播放外框*/
+.player-outer-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid red;*/
+    width: 888px;
+    height: 50px;
+    /*background-color: rgba(0, 0, 0, .55);*/
+    top: 800px;
+    left: 50px;
+}
+
+/*播放上一首*/
+.prev-btn-wrapper {
+    display: block;
+    position: relative;
+    width: 19px;
+    height: 20px;
+    background: url("../../img/ui8.png") 0 -30px;
+    float: left;
+    margin-top: 10px;
+    cursor: pointer;
+    filter: brightness(75%);
+}
+
+.prev-btn-wrapper:hover {
+    filter: brightness(110%);
+}
+
+/*播放暂停按钮*/
+.go-play-btn-wrapper {
+    display: block;
+    position: relative;
+    width: 21px;
+    height: 29px;
+    background: url("../../img/ui8.png") 0 0;
+    float: left;
+    margin: 7px 0 0 45px;
+    cursor: pointer;
+    filter: brightness(75%);
+}
+
+.go-play-btn-wrapper:hover {
+    filter: brightness(100%);
+}
+
+/*播放下一首*/
+.next-btn-wrapper {
+    display: block;
+    position: relative;
+    width: 19px;
+    height: 20px;
+    background: url("../../img/ui8.png") 0 -52px;
+    float: left;
+    margin: 10px 0 0 45px;
+    cursor: pointer;
+    filter: brightness(75%);
+}
+
+.next-btn-wrapper:hover {
+    filter: brightness(100%);
+}
+
+/*进度条总外框*/
+.process-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 500px;
+    height: 50px;
+    float: left;
+    /*border: 1px solid black;*/
+    margin: 1px 0 0 45px;
+}
+
+/*进度条上面的歌曲信息外框*/
+.song-info-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 470px;
+    height: 17px;
+}
+
+.song-singer-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    margin-left: 4px;
+}
+
+.song-singer-wrapper a {
+    display: inline-block;
+    position: relative;
+    top: -4px;
+    font-size: 14px;
+    /*user-select: none;*/
+}
+
+.process-time-wrapper {
+    display: block;
+    position: relative;
+    float: right;
+    font-size: 14px;
+    top: -2px;
+    /*user-select: none;*/
+}
+
+.play-mode-wrapper {
+    display: block;
+    position: relative;
+    width: 23px;
+    height: 20px;
+    background: url("../../img/ui8.png") 0 -260px;
+    float: left;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+    filter: brightness(75%);
+}
+
+.play-mode-wrapper:hover {
+    filter: brightness(100%);
+}
+
+.control-voice-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 135px;
+    height: 26px;
+    float: left;
+    margin: 11px 0 0 15px;
+}
+
+.voice-img-wrapper {
+    display: block;
+    position: relative;
+    width: 26px;
+    height: 21px;
+    background: url("../../img/ui8.png") 0 -144px;
+    float: left;
+    cursor: pointer;
+    filter: brightness(85%);
+}
+
+.voice-img-wrapper:hover {
+    filter: brightness(100%);
+}
+
+input[type=range] {
+    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+    width: 100%; /* Specific width is required for Firefox. */
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    background: transparent; /* Hides the slider so custom styles can be added */
+    border-color: transparent;
+    color: transparent;
+}
+
+/*音量滑块*/
+.control-voice-outer-wrapper input[type="range"] {
+    display: block;
+    position: relative;
+    -webkit-appearance: none;
+    width: 100px;
+    height: 15px;
+    background-color: transparent;
+    float: right;
+    top: 1px;
+    cursor: pointer;
+}
+
+/*进度条滑块*/
+.process-outer-wrapper input[type="range"] {
+    display: block;
+    position: absolute;
+    -webkit-appearance: none;
+    width: 470px;
+    height: 20px;
+    /*border: 1px solid red;*/
+    background-color: transparent;
+    margin-top: -3px;
+    cursor: pointer;
+}
+
+/*滑道*/
+input[type=range]::-webkit-slider-runnable-track {
+    height: 2px;
+    border-radius: 1px; /*将轨道设为圆角的*/
+    background: linear-gradient(to right, #1ab1e2, blue 0%, #eee 0%, #eee);
+}
+
+/*滑标*/
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%; /*外观设置为圆形*/
+    margin-top: -3px; /*使滑块超出轨道部分的偏移量相等*/
+    background-color: green;
+}
+
+/*这个只对IE浏览器有效，进度条已填充的部分*/
+input[type=range]::-ms-fill-lower {
+    background-color: red;
+}
+
+/*这个只对IE浏览器有效，进度条未填充的部分*/
+input[type=range]::-ms-fill-upper {
+    background-color: purple;
+}
+
+input[type=range]:focus {
+    outline: none;
+}

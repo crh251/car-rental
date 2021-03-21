@@ -16,28 +16,29 @@ public enum ResponseCode {
      */
     SUCCESS("0", "success"),
 
-    COMMON_ERROR("", ""),
-
-    PARAM_INVALID("1", ""),
-
     LOGIN_FAIL("1", "用户名或密码错误"),
+
+    COMMON_ERROR("2", "通用错误"),
+
+    PARAM_INVALID("3", "参数错误"),
+
     /**
      * 1-未登录
      */
-    NO_LOGIN("1", "未登录或已超时"),
+    NO_LOGIN("4", "未登录或已超时"),
 
-    CAR_MODEL_NOT_EXIST("2", "车辆型号不存在"),
+    CAR_MODEL_NOT_EXIST("5", "车辆型号不存在"),
     /**
      * 2-暂无可用车辆
      */
-    NO_AVAIL_CAR("2", "暂无可用车辆"),
+    NO_AVAIL_CAR("6", "暂无可用车辆"),
 
-    RENTAL_CONFLICT("3", "与已有预订冲突"),
+    RENTAL_CONFLICT("7", "与已有预订冲突"),
 
     /**
      * 3-取消预订失败
      */
-    CANCEL_RENTAL_FAIL("3", "取消失败");
+    CANCEL_RENTAL_FAIL("8", "取消失败");
 
     private final String code;
 

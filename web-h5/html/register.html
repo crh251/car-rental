@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <script src="../js/global.js"></script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+</head>
+<body>
+
+<style type="text/css">
+    #login-block {
+        display: block;
+        margin: 15px;
+    }
+
+    #login-block input {
+        font-size: 15px;
+        width: 50px;
+        height: 30px;
+        background-color: #4490f7;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    #login-block input:hover {
+        background-color: #317ef3;
+        box-shadow: 1px 1px 1px #317ef3;
+    }
+</style>
+<div id="login-block">{{message}}<input type="button" v-bind:value="value" v-bind:title="'登录'" v-on:click="login"></div>
+<script>
+    new Vue({
+        el: '#login-block',
+        data: {
+            message: '我已注册，现在就 ',
+            value: '登录'
+        },
+        methods: {
+            login: function () {
+                console.log("message: " + this.message);
+            }
+        }
+    })
+</script>
+
+<style type="text/css">
+    .register-form-wrapper {
+        display: block;
+        width: 500px;
+        height: 500px;
+        background-color: white;
+        margin: auto;
+    }
+
+    .form-block-wrapper {
+        display: block;
+        width: 480px;
+        height: 40px;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .pass-input-wrapper {
+        padding-left: 5px;
+        width: 250px;
+        height: 36px;
+        border: 1px solid #ddd;
+    }
+
+    .input-label-wrapper {
+        margin: 0;
+        width: 50px;
+        height: 36px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    .img-verify-input-wrapper {
+        padding-left: 5px;
+        width: 135px;
+        height: 36px;
+        border: 1px solid #ddd;
+    }
+
+    .get-verify-btn-wrapper {
+        outline: none;
+        border: 1px solid #4490f7;
+        width: 110px;
+        height: 40px;
+        background-color: #4490f7;
+        cursor: pointer;
+    }
+
+    .get-verify-btn-wrapper:hover {
+        background-color: #317ef3;
+        box-shadow: 1px 1px 1px #4490f7;
+    }
+
+    .get-verify-btn-disabled-wrapper {
+        outline: none;
+        border: 1px solid #4490f7;
+        width: 110px;
+        height: 40px;
+        background-color: #4490f7;
+    }
+
+    .register-btn-wrapper {
+        font-size: 16px;
+        font-weight: bold;
+        width: 257px;
+        height: 40px;
+        background-color: #4490f7;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .register-btn-wrapper:hover {
+        background-color: #317ef3;
+        box-shadow: 1px 1px 1px #4490f7;
+    }
+
+    .error-hint-wrapper {
+        font-size: 10px;
+        color: red;
+    }
+</style>
+<div class="register-form-wrapper" id="register-form">
+    <p class="form-block-wrapper">
+        <span class="input-label-wrapper" style="padding-right: 10px">手机号</span>
+        <input class="pass-input-wrapper" v-model="phone" v-on:blur="phoneBlurFn"
+               type="number"
+               autocomplete="off"
+               placeholder="可用于登录和找回密码"
+               spellcheck="false">
+        <span class="error-hint-wrapper">{{phoneErrorHint}}</span>
+    </p>
+
+    <p class="form-block-wrapper">
+        <span class="input-label-wrapper" style="padding-left: 14px;padding-right: 12px">密码</span>
+        <input class="pass-input-wrapper" v-model="password" v-on:blur="passwordBlurFn"
+               type="password"
+               autocomplete="off"
+               placeholder="请设置登录密码"
+               spellcheck="false">
+        <span class="error-hint-wrapper">{{passwordErrorHint}}</span>
+    </p>
+
+    <div class="form-block-wrapper">
+        <span class="input-label-wrapper" style="padding-right: 10px">验证码</span>
+        <input class="img-verify-input-wrapper" v-model="verifyCode"
+               type="number"
+               autocomplete="off"
+               placeholder="请输入验证码"
+               spellcheck="false">
+        <input v-bind:class="isBtnNormal ? 'get-verify-btn-wrapper' : 'get-verify-btn-disabled-wrapper'"
+               v-on:click="getVerifyCode" type="button"
+               v-bind:value="isBtnNormal ? '获取短信验证码' : secondCnt + 's后重试'">
+        <span class="error-hint-wrapper">{{verifyCodeErrorHint}}</span>
+    </div>
+    <p class="form-block-wrapper">
+        <span class="input-label-wrapper" style="padding-right: 47px">&nbsp;&nbsp;</span>
+        <input class="register-btn-wrapper" v-on:click="register" type="button" value="注册">
+    </p>
+</div>
+<script>
+    let vue = new Vue({
+        el: '#register-form',
+        data: {
+            isBtnNormal: true,
+            secondCnt: 0,
+            isExist: false,
+            //检查是否已经点击了获取验证码按钮
+            isGetVerifyCode: false,
+            phone: '',
+            password: '',
+            verifyCode: '',
+            phoneErrorHint: '',
+            passwordErrorHint: '',
+            verifyCodeErrorHint: ''
+        },
+        methods: {
+            phoneBlurFn: function () {
+                if (!(/^1([34578])\d{9}$/.test(this.phone))) {
+                    this.phoneErrorHint = '请输入正确的11位手机号码!';
+                    return;
+                }
+                axios({
+                    method: 'post',
+                    url: webUrl + '/isPhoneExist',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                    },
+                    params: {
+                        phone: this.phone
+                    }
+                }).then(response => {
+                    if (isSuccess(response.data)) {
+                        if (response.data.datas[0].isExist === "1") {
+                            this.isExist = true;
+                            this.phoneErrorHint = "手机号已存在!";
+                        } else {
+                            this.isExist = false;
+                            this.phoneErrorHint = "";
+                        }
+                    }
+                }).catch(error => console.log(error));
+            },
+            passwordBlurFn: function () {
+                this.passwordErrorHint = '';
+                if (this.password.length < 6) {
+                    this.passwordErrorHint = '密码至少6位!';
+                }
+            },
+            getVerifyCode: function () {
+                this.verifyCodeErrorHint = '';
+                if (!(/^1([34578])\d{9}$/.test(this.phone))) {
+                    this.verifyCodeErrorHint = '请输入正确的11位手机号码!';
+                    return;
+                }
+                axios({
+                    method: 'post',
+                    url: webUrl + '/phoneVerify',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                    },
+                    params: {
+                        phone: this.phone
+                    }
+                }).then(response => {
+                    if (isSuccess(response.data)) {
+                        this.isGetVerifyCode = true;
+                        //开始60秒倒计时
+                        startSecondCnt(60, this);
+                    }
+                }).catch(error => console.log(error));
+            },
+            register: function () {
+                if (!(/^1([34578])\d{9}$/.test(this.phone))) {
+                    this.phoneErrorHint = '请输入正确的11位手机号码!';
+                    return;
+                }
+                if (this.isExist) {
+                    this.phoneErrorHint = '手机号码已注册!';
+                    return;
+                }
+                if (this.password.length < 6) {
+                    this.passwordErrorHint = '密码至少6位!';
+                    return;
+                }
+                if (!this.isGetVerifyCode) {
+                    this.verifyCodeErrorHint = '您还未获取短信验证码!';
+                    return;
+                }
+                if (this.verifyCode.length !== 4) {
+                    this.verifyCodeErrorHint = '请输入正确的4位短信验证码!';
+                    return;
+                }
+                axios({
+                    method: 'post',
+                    url: webUrl + '/register',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                    },
+                    params: {
+                        phone: this.phone,
+                        password: this.password,
+                        phoneCode: this.verifyCode
+                    }
+                }).then(response => {
+                    if (isSuccess(response.data)) {
+                        console.log("注册成功!");
+                    } else {
+                        this.verifyCodeErrorHint = response.data.responseInfo;
+                    }
+                }).catch(error => console.log(error));
+                console.log("注册");
+            }
+        }
+    })
+</script>
+<script>
+    let startSecondCnt = function (second, vue) {
+        vue.secondCnt = second;
+        vue.isBtnNormal = false;
+        setTimeout(startCountDown, 1000);
+    };
+
+    let startCountDown = function () {
+        if (--vue.secondCnt === 0) {
+            vue.isBtnNormal = true;
+        } else {
+            setTimeout(startCountDown, 1000);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,9 +1,6 @@
 package laijh.carrental.config;
 
-import laijh.carrental.common.ApiResponse;
-import laijh.carrental.common.ApiResponseUtil;
-import laijh.carrental.common.CommonUtil;
-import laijh.carrental.common.ParamInvalidException;
+import laijh.carrental.common.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindException;
@@ -31,6 +28,12 @@ public class HandlerExceptionResolverConfig implements WebMvcConfigurer {
         resolvers.add(0, (request, response, handler, ex) -> {
 
             ModelAndView modelAndView = new ModelAndView(new MappingJackson2JsonView());
+
+            if (ex instanceof NoLoginException) {
+                ApiResponse<?> apiResponse = ApiResponseUtil.genError(ResponseCode.NO_LOGIN);
+                modelAndView.addAllObjects(CommonUtil.bean2map(apiResponse, true));
+                return modelAndView;
+            }
 
             if (ex instanceof BindException) {
                 BindException e = (BindException) ex;
