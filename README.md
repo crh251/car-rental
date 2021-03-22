@@ -2,6 +2,8 @@
 
 项目访问链接：<https://ieasygo.top/car_rental_h5/html/rental.html>
 
+![avatar](img/car_rental.png)
+
 ## 方案设计
 
 ### 表结构
