@@ -2,6 +2,15 @@
 
 项目访问链接：<https://ieasygo.top/car_rental_h5/html/rental.html>
 
+***测试账号***
+
+username | password
+:---:|:---:
+`t1`|`123`
+`t2`|`123`
+`...`|`123`
+`t20`|`123`
+
 ![avatar](img/car_rental.png)
 
 ## 方案设计
