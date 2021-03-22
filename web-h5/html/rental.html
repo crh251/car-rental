@@ -13,10 +13,12 @@
 <script>
     ajaxGet("../component/rental/rental.html", function (xhr) {
         document.body.innerHTML += xhr.responseText;
+        console.log("append rental html success!")
         ajaxGet("../component/rental/rental.js", function (xhr) {
             let script = document.createElement('script');
             script.innerHTML = xhr.responseText;
             document.body.appendChild(script);
+            console.log("append rental js success!")
         })
     });
 </script>

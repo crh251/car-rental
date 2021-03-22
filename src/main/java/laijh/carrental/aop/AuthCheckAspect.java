@@ -1,6 +1,7 @@
 package laijh.carrental.aop;
 
 import laijh.carrental.common.ApiResponseUtil;
+import laijh.carrental.common.BaseRequest;
 import laijh.carrental.common.RedisKeyConst;
 import laijh.carrental.common.ResponseCode;
 import laijh.carrental.dao.UserInfoMapper;
@@ -47,7 +48,17 @@ public class AuthCheckAspect {
         String token = request.getParameter(RedisKeyConst.TOKEN_NAME);
 
         if (StringUtils.isBlank(token)) {
-            return ApiResponseUtil.genError(ResponseCode.NO_LOGIN);
+
+            Object[] args = pjp.getArgs();
+            if (args != null && args.length > 0) {
+                if (args[0] instanceof BaseRequest) {
+                    token = ((BaseRequest) args[0]).getToken();
+                }
+            }
+
+            if (StringUtils.isBlank(token)) {
+                return ApiResponseUtil.genError(ResponseCode.NO_LOGIN);
+            }
         }
 
         // redis中token对应的用户信息

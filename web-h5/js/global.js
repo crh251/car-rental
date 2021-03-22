@@ -1,4 +1,5 @@
-let webUrl = "https://ieasygo.top/car_rental";
+let webUrl = "https://localhost:5000/car_rental";
+// let webUrl = "https://ieasygo.top/car_rental";
 
 let isSuccess = function (result) {
     return result.code === "0";

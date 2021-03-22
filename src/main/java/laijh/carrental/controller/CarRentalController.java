@@ -90,17 +90,18 @@ public class CarRentalController {
             return ApiResponseUtil.genError(ResponseCode.CAR_MODEL_NOT_EXIST);
         }
 
+        // 对用户加锁
+        final String userLockName = RedisKeyConst.USER_CANCEL_RENTAL_LOCK + userInfo.getId();
+        RLock userLock = redissonClient.getLock(userLockName);
 
         // 对车型号加锁
         final String carModelLockName = RedisKeyConst.CAR_RENTAL_LOCK_PREFIX + carModel;
         RLock carModelLock = redissonClient.getLock(carModelLockName);
 
-        // 对用户加锁
-        final String userLockName = RedisKeyConst.USER_CANCEL_RENTAL_LOCK + userInfo.getId();
-        RLock userLock = redissonClient.getLock(userLockName);
-
         userLock.lock();
         try {
+
+            log.info("get user_id lock[{}] success!", userLockName);
 
             // (startTime, endTime) 区间内用户的车辆预订信息
             List<CarRentalInfo> userCarRentalList = listTimeIntervalCarRental(userInfo.getId(),
@@ -113,6 +114,8 @@ public class CarRentalController {
 
             carModelLock.lock();
             try {
+                log.info("get car_model lock[{}] success!", carModelLockName);
+
                 // (startTime, endTime) 区间内的车辆预订信息
                 List<CarRentalInfo> carRentalList = listTimeIntervalCarRental(null, carModel, startTime, endTime);
 

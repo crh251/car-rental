@@ -30,6 +30,10 @@ let car_rental = new Vue({
         // 预订的结束使用时间
         end_time: null
     },
+    mounted() {
+        console.log("start mounted go!");
+        this.initRental();
+    },
     methods: {
         close_car_rental_window: function (event) {
             console.log("close car rental window!")
@@ -112,6 +116,48 @@ let car_rental = new Vue({
                 }
             }).catch(error => console.log(error));
 
+        },
+        initRental() {
+            console.log("already on load!");
+
+            axios({
+                method: 'get',
+                url: webUrl + '/rental/list_car_model'
+            }).then(response => {
+                if (isSuccess(response.data)) {
+                    console.log("list_car_model: " + response.data.dataList);
+                    car_rental.car_model_list = response.data.dataList;
+                } else {
+                    alert(response.data.message);
+                }
+            }).catch(error => console.log(error));
+
+
+            axios({
+                method: 'post',
+                url: webUrl + '/rental/my_car_rental',
+                headers: {
+                    'Content-type': 'application/x-www-form-urlencoded'
+                },
+                params: {
+                    token: localStorage.getItem("token")
+                }
+            }).then(response => {
+                console.log("my car rental: " + JSON.stringify(response.data));
+
+                if (isSuccess(response.data)) {
+                    car_rental.car_rental_list = response.data.dataList;
+                } else {
+
+                    alert(response.data.message);
+
+                    if (notLogin(response.data)) {
+                        doLogin();
+                    }
+
+                }
+            }).catch(error => console.log(error));
+
         }
     }
 });
@@ -121,45 +167,3 @@ let doLogin = function () {
     window.open(car_rental.loginUrl, '_self');
 }
 
-window.onload = function () {
-    console.log("already on load!");
-
-    axios({
-        method: 'get',
-        url: webUrl + '/rental/list_car_model'
-    }).then(response => {
-        if (isSuccess(response.data)) {
-            console.log("list_car_model: " + response.data.dataList);
-            car_rental.car_model_list = response.data.dataList;
-        } else {
-            alert(response.data.message);
-        }
-    }).catch(error => console.log(error));
-
-
-    axios({
-        method: 'post',
-        url: webUrl + '/rental/my_car_rental',
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded'
-        },
-        params: {
-            token: localStorage.getItem("token")
-        }
-    }).then(response => {
-        console.log("my car rental: " + JSON.stringify(response.data));
-
-        if (isSuccess(response.data)) {
-            car_rental.car_rental_list = response.data.dataList;
-        } else {
-
-            alert(response.data.message);
-
-            if (notLogin(response.data)) {
-                doLogin();
-            }
-
-        }
-    }).catch(error => console.log(error));
-
-}
