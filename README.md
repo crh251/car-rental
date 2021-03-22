@@ -2,6 +2,8 @@
 
 项目访问链接：<https://ieasygo.top/car_rental_h5/html/rental.html>
 
+Swagger Api：<https://ieasygo.top/car_rental/swagger-ui.html>
+
 ***测试账号***
 
 username | password
