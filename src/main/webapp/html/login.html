@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/global.js"></script>
+    <link rel="stylesheet" type="text/css" href="../component/login/login.css">
+    <style>
+        body {
+            background-image: url("../img/bg.jpg");
+        }
+
+        .pop-login-btn-wrapper {
+            position: relative;
+            display: block;
+            height: 25px;
+            width: 25px;
+            background: url("../img/ui1.png") -244px 0;
+            overflow: hidden;
+            cursor: pointer;
+            float: right;
+            top: 10px;
+            right: 30px;
+        }
+
+        .pop-login-btn-wrapper:hover {
+            background-color: #EAEAEA;
+            box-shadow: #6E6E6E;
+        }
+
+    </style>
+</head>
+<body>
+<script>
+
+    window.onload = function () {
+        let token = localStorage.getItem("token");
+        console.log("is login? token: " + token);
+        console.log("loginSuccessUrl: " + login.loginSuccessUrl);
+        if (token != null && token.length > 0) {
+            console.log("open");
+            window.open(login.loginSuccessUrl, '_self');
+        }
+    }
+
+    resizeBodyBackground();
+    window.addEventListener("resize", resizeBodyBackground);
+
+    function resizeBodyBackground() {
+        document.body.style.backgroundSize = document.documentElement.clientWidth + "px " + document.documentElement.clientHeight + "px";
+    }
+
+</script>
+
+<div class="pop-login-btn-wrapper"
+     id="pop-login-btn"
+     v-on:click.stop="openLogin"
+     v-bind:style="{ display: isShow ? 'block' : 'none' }"
+     title="登录">
+</div>
+<script>
+    ajaxGet("../component/login/login.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/login/login.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+            let popLoginScript = document.createElement('script');
+            popLoginScript.innerHTML = "let popLoginBtn = new Vue({\n" +
+                "        el: '#pop-login-btn',\n" +
+                "        data: {\n" +
+                "            isShow: false\n" +
+                "        },\n" +
+                "        methods: {\n" +
+                "            openLogin: function () {\n" +
+                "                this.isShow = false;\n" +
+                "                login.isDisplay = true;\n" +
+                "            }\n" +
+                "        }\n" +
+                "    });";
+            document.body.appendChild(popLoginScript);
+        })
+    });
+
+</script>
+<!--<script>-->
+<!--let popLoginBtn = new Vue({-->
+<!--el: '#pop-login-btn',-->
+<!--data: {-->
+<!--isShow: true-->
+<!--},-->
+<!--methods: {-->
+<!--openLogin: function () {-->
+<!--this.isShow = false;-->
+<!--login.isDisplay = true;-->
+<!--}-->
+<!--}-->
+<!--});-->
+<!--</script>-->
+</body>
+</html>

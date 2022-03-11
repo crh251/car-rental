@@ -1,0 +1,81 @@
+<div v-bind:style="{ display: isDisplay ? 'block' : 'none', left: left + 'px', top: top + 'px' }"
+     class="login-outer-wrapper" id="login-outer">
+    <div class="login-head-wrapper"
+         v-on:mousedown="mouseDownEvn">
+        <a class="login-type-hint-wrapper">
+            {{normalLogin ? '用户名密码登录' : '短信快捷登录'}}
+        </a>
+        <!--关闭弹出的登录框-->
+        <div class="close-pop-login-wrapper" style="display: none" v-on:click.stop="closeLoginForm"></div>
+    </div>
+
+    <!--手机号密码登录-->
+    <div class="phone-pwd-login-outer-wrapper"
+         v-bind:style="{ display: normalLogin ? 'block' : 'none' }">
+        <div class="error-hint-wrapper">
+            {{errorHint}}
+        </div>
+        <input type="text" v-model="phone"
+               class="phone-input-wrapper"
+               autocomplete="off" placeholder="用户名" spellcheck="false">
+        <input type="text" onfocus="this.type='password'"
+               v-model="password"
+               class="pwd-input-wrapper"
+               autocomplete="off"
+               placeholder="密码" spellcheck="false">
+        <div class="img-verify-outer-wrapper" style="display: none">
+            <input type="text"
+                   v-on:keyup.enter=" normalLogin ? phonePasswordLogin() : smsLogin() "
+                   v-model="verifyCode"
+                   class="img-verify-input-wrapper"
+                   autocomplete="off"
+                   placeholder="验证码"
+                   spellcheck="false">
+            <div class="img-verify-img-wrapper"
+                 v-bind:style="{ backgroundImage: imgUrl }"
+                 v-on:click="changeVerifyCode"
+                 title="点击更换验证码"></div>
+        </div>
+    </div>
+
+    <!--短信验证码快捷登录-->
+    <div class="sms-quick-login-outer-wrapper"
+         v-bind:style="{ display: normalLogin ? 'none' : 'block' }">
+        <div class="error-hint-wrapper">
+            {{errorHint}}
+        </div>
+        <input v-model="phone"
+               type="number"
+               class="phone-input-wrapper"
+               autocomplete="off" placeholder="手机号" spellcheck="false">
+        <div class="sms-verify-outer-wrapper">
+            <input v-on:keyup.enter=" normalLogin ? phonePasswordLogin() : smsLogin() "
+                   v-model="smsCode"
+                   type="number"
+                   class="sms-verify-input-wrapper number-only"
+                   autocomplete="off"
+                   placeholder="短信验证码"
+                   spellcheck="false">
+            <input type="button"
+                   v-on:click="getSmsCode"
+                   v-bind:disabled="!isBtnNormal"
+                   v-bind:class=" isBtnNormal ? 'get-sms-code-wrapper' : 'get-sms-code-disabled-wrapper' "
+                   v-bind:value="isBtnNormal ? '获取验证码' : secondCnt + 's后重试'"
+                   class="get-sms-code-wrapper">
+        </div>
+    </div>
+
+    <!--下面的html代码是登录按钮和与登录框不耦合的代码-->
+    <input v-on:click=" normalLogin ? phonePasswordLogin() : smsLogin() "
+           type="button" class="submit-wrapper" value="登录">
+
+    <div class="forget-register-change-outer-wrapper" style="display: none">
+        <a v-bind:href="forgetPasswordUrl" target="_blank">忘记密码?</a>
+        丨
+        <a v-bind:href="registerUrl" target="_blank">立即注册</a>
+
+        <a class="change-login-type-wrapper" v-on:click="changeLoginType">
+            {{ normalLogin ? '短信快捷登录':'手机号密码登录' }}
+        </a>
+    </div>
+</div>

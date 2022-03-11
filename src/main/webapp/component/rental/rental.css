@@ -1,0 +1,62 @@
+.car_model_list {
+    font-size: 25px;
+    display: block;
+    position: absolute;
+}
+
+.car_rental_list {
+    font-size: 15px;
+    display: block;
+    position: absolute;
+}
+
+td {
+    padding: 5px 5px 5px 5px;
+}
+
+.car_rental_outer {
+    font-size: 25px;
+    display: none;
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    background-color: #FDEDEC;
+    /*user-select: none;*/
+}
+
+
+/*关闭登录弹框*/
+.close-car-rental-wrapper {
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 5px;
+    right: 5px;
+    /*border: 1px solid black;*/
+    background: url("../../img/ui7.png") -56px -48px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.close-car-rental-wrapper:hover {
+    background: url("../../img/ui7.png") -72px -48px;
+}
+
+.car_rental_submit_wrapper {
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    top: 20px;
+    left: 150px;
+    color: rgb(255, 255, 255);
+    background-color: #4490f7;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    outline: none;
+    border-radius: 3px;
+}

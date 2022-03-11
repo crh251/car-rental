@@ -1,0 +1,58 @@
+<!--下面的html代码是搜索框的-->
+<div xmlns:v-bind="http://www.w3.org/1999/xhtml"
+     xmlns:v-bind="http://www.w3.org/1999/xhtml"
+     xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+     class="search-outer-wrapper"
+     v-bind:style="{ width: width + 32 + 'px', left: left + 'px', top: top + 'px' }"
+     id="search-outer">
+    <input v-on:keyup="inputFn"
+           v-model="inputWord"
+           v-on:click.stop="inputClick"
+           v-bind:style="{ width: width - 5 + 'px' }"
+           placeholder="搜索音乐..."
+           class="search-input-wrapper"
+           type="text" autocomplete="off" spellcheck="false">
+    <input v-on:click="btnClick"
+           class="search-submit-wrapper" type="button" value=""/>
+</div>
+
+<!--下面的html代码是搜索建议的-->
+<div class="suggest-outer-wrapper"
+     v-bind:style="{ display: isDisplay ? 'block' : 'none', width: width + 42 + 'px', left: left + 'px', top: top + 43 + 'px' }"
+     id="suggest-outer">
+    <div v-bind:style="{ display: isDisplay && songs.length!==0 ? 'block' : 'none' }"
+         v-bind:style="{ width: width + 20 + 'px'}"
+         class="song-suggest-wrapper">
+        <div class="song-suggest-img-wrapper"></div>
+        <div class="song-suggest-text-wrapper">单曲</div>
+    </div>
+    <ul>
+        <li class="li-wrapper"
+            v-for="(song, index) in songs"
+            v-bind:class="index === liIndex || index === mouseIndex ? 'li-highlight-wrapper' : 'li-normal-wrapper'"
+            v-on:mouseover="mouseIndex = index"
+            v-on:mouseout="mouseIndex = -1"
+            v-on:click.stop="songClick(song.id, song.mid)"
+        >
+            {{ song.name }} -&nbsp; <span style="color: #31c27c">{{song.singer}}</span>
+        </li>
+    </ul>
+
+    <div v-bind:style="{ display: isDisplay && singers.length!==0 ? 'block' : 'none' }"
+         v-bind:style="{ width: width + 20 + 'px'}"
+         class="singer-suggest-wrapper">
+        <div class="singer-suggest-img-wrapper"></div>
+        <div class="singer-suggest-text-wrapper">歌手</div>
+    </div>
+    <ul>
+        <li class="li-wrapper"
+            v-for="(singer, index) in singers"
+            v-bind:class="index + songs.length === liIndex || index + songs.length === mouseIndex ? 'li-highlight-wrapper' : 'li-normal-wrapper'"
+            v-on:mouseover="mouseIndex = index + songs.length"
+            v-on:mouseout="mouseIndex = -1"
+            v-on:click="singerClick(singer.id, singer.mid)"
+        >
+            {{ singer.name }}
+        </li>
+    </ul>
+</div>

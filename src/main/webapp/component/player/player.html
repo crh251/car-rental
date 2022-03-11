@@ -1,0 +1,126 @@
+<style type="text/css" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+       xmlns:v-bind="http://www.w3.org/1999/xhtml">
+
+    body {
+        overflow: hidden;
+    }
+
+    .bg-wrapper {
+        background: #a0a0a0 center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 110%;
+        width: 110%;
+        margin: -5%;
+        background-size: cover;
+        filter: blur(180px);
+    }
+
+</style>
+
+<div v-bind:style="{ backgroundImage:  'url(' + photoUrl + ')' }"
+     class="bg-wrapper"
+     id="bg">
+</div>
+
+<audio id="audio-player"
+       v-bind:src="songUrl"
+       v-on:canplay="startPlay"
+       v-on:play="musicPlay"
+       v-on:pause="musicStop"
+       v-on:timeupdate="updateTime"
+       autoplay
+       style="display: none;"></audio>
+
+<div class="lyric-outer-wrapper" id="lyric-outer">
+    <div v-bind:class=" isPlay ? 'needle-play-wrapper' : 'needle-pause-wrapper' "
+         class="needle-wrapper">
+    </div>
+    <div v-bind:style="{ animationPlayState: isPlay ? 'running' : 'paused' }"
+         class="song-circle-outer-wrapper">
+        <div v-bind:style="{ backgroundImage:  'url(' + photoUrl + ')' }"
+             class="song-photo-wrapper">
+        </div>
+    </div>
+    <div class="lyric-song-info-wrapper">
+        歌曲名：{{songName}} <br>
+        <span style="float:left;">歌手名：</span>
+        <span style="float:left;" v-for="(singer, index) in singers">
+            <span v-if="index > 0">/</span>
+            {{singer}}
+        </span>
+        <br>
+        专辑名：{{album}}
+        <!--歌曲名：手心的蔷薇-->
+        <!--歌手名：林俊杰 / G.E.M. 邓紫棋-->
+        <!--专辑名：新地球-->
+    </div>
+    <div class="lyric-roll-outer-wrapper">
+        <div class="lyric-roll-wrapper" v-html="rawLyric">
+            <!--<span style="margin-top: 50px">你眼眶超载的眼泪<br></span>-->
+            <!--<span>乘客是绝望和心碎<br></span>-->
+            <!--<span>我可以看见你忍住伤悲<br></span>-->
+            <!--<span>那一双爱笑眼睛不适合皱眉<br></span>-->
+        </div>
+    </div>
+</div>
+
+
+<div class="player-outer-wrapper" id="pause-play-outer">
+    <div class="prev-btn-wrapper" title="上一首"></div>
+    <div v-on:click.stop="isPlay = !isPlay"
+         v-bind:style="{ backgroundPosition: isPlay ? '-30px 0' : '0 0' }"
+         class="go-play-btn-wrapper"
+         v-bind:title="isPlay ? '暂停' : '播放'"></div>
+    <div class="next-btn-wrapper" title="下一首"></div>
+
+    <div class="process-outer-wrapper">
+        <div class="song-info-outer-wrapper">
+            <div class="song-singer-wrapper">
+                <a>
+                    {{songName}}&nbsp;-
+                    <span v-for="(singer, index) in singers">
+                        <span v-if="index > 0">/</span>
+                        {{singer}}
+                    </span>
+                </a>
+                <!--<a>那些你很冒险的梦 - 林俊杰</a>-->
+            </div>
+            <div class="process-time-wrapper">
+                {{currentTime}} / {{time}}
+                <!--03:13 / 04:05-->
+            </div>
+        </div>
+        <input type="range"
+               v-model="percent"
+               v-on:mousedown="mouseDownFn"
+               v-on:mouseup="mouseUpFn"
+               v-on:input="inputFn"
+               title="歌曲进度"/>
+        <span v-html="'<style>' + '.process-outer-wrapper input[type=range]::-webkit-slider-runnable-track {' +
+            'background: linear-gradient(to right, #1ab1e2, blue '
+            + (percent) + '%, #eee '
+            + (percent) + '%, #eee);'
+            + '}' + '</style>'">
+        </span>
+    </div>
+    <div class="play-mode-wrapper">
+    </div>
+    <div class="control-voice-outer-wrapper">
+        <div v-bind:style="{ backgroundPosition: isQuiet ? '0 -182px' : '0 -144px' }"
+             v-on:click.stop="isQuiet = !isQuiet"
+             class="voice-img-wrapper">
+        </div>
+        <input type="range"
+               v-on:input="voiceFn"
+               v-model="voice"
+               title="音量大小">
+        <span v-html="'<style>' + '.control-voice-outer-wrapper input[type=range]::-webkit-slider-runnable-track {' +
+            'background: linear-gradient(to right, #1ab1e2, blue '
+            + voice + '%, #eee '
+            + voice + '%, #eee);'
+            + '}' + '</style>'"></span>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+/*搜索框样式*/
+.search-outer-wrapper {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: solid 1px #c9c9c9;
+    height: 31px;
+    padding: 5px;
+    z-index: 8;
+}
+
+.search-input-wrapper {
+    padding-left: 5px;
+    float: left;
+    border: 0;
+    font-size: 100%;
+    height: 29px;
+    outline: none;
+}
+
+.search-submit-wrapper {
+    outline: none; /*设置点击按钮时边框颜色为无*/
+    cursor: pointer; /*设置鼠标指针为手型*/
+    float: left;
+    width: 29px;
+    height: 29px;
+    background: transparent url(http://img.mukewang.com/52da5df800012b1e02220137.jpg) no-repeat -30px -107px;
+    border: 0;
+}
+
+/*设置搜索建议的CSS*/
+.suggest-outer-wrapper {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: solid 1px #f2f2f2;
+    border-top: 0;
+    z-index: 8;
+}
+
+/*单曲搜索建议*/
+.song-suggest-wrapper {
+    display: block;
+    position: relative;
+    background-color: #fff;
+    padding: 5px;
+    height: 25px;
+    font-size: 15px;
+    color: #999;
+}
+
+.song-suggest-img-wrapper {
+    display: block;
+    position: relative;
+    margin: 5px;
+    float: left;
+    width: 16px;
+    height: 16px;
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -20px -220px;
+}
+
+.song-suggest-text-wrapper {
+    display: block;
+    position: relative;
+    top: 2px;
+    float: left;
+    padding: 1px;
+    left: 6px;
+    cursor: default;
+}
+
+/*歌手搜索建议*/
+.singer-suggest-wrapper {
+    display: block;
+    position: relative;
+    padding: 5px;
+    height: 25px;
+    font-size: 15px;
+    color: #999;
+    border-top: solid 1px #f2f2f2;
+}
+
+.singer-suggest-img-wrapper {
+    display: block;
+    position: relative;
+    margin: 5px;
+    float: left;
+    width: 16px;
+    height: 16px;
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -20px -240px;
+}
+
+.singer-suggest-text-wrapper {
+    display: block;
+    position: relative;
+    top: 2px;
+    float: left;
+    padding: 1px;
+    left: 6px;
+    cursor: default;
+}
+
+/*搜索内容*/
+.suggest-outer-wrapper ul {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.li-wrapper {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 25px;
+    padding: 4px 4px 4px 38px;
+    font-size: 14px;
+}
+
+.li-normal-wrapper {
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.li-highlight-wrapper {
+    background-color: #f5f5f5;
+    text-decoration: underline;
+}

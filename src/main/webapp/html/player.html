@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>在线音乐播放</title>
+    <script src="../js/global.js"></script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../component/player/lyric.css">
+    <link rel="stylesheet" type="text/css" href="../component/player/player.css">
+</head>
+<body>
+
+<script>
+    ajaxGet("../component/player/player.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/player/player.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+
+</script>
+
+</body>
+</html>

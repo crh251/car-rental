@@ -1,0 +1,390 @@
+/*搜索结果歌曲列表*/
+.result-outer-wrapper {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 6;
+}
+
+.operation-outer-wrapper {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 10px;
+    width: 500px;
+    height: 60px;
+}
+
+.play-all-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    width: 123px;
+    height: 38px;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+}
+
+.play-all-wrapper:hover {
+    background-color: #ddd;
+}
+
+.play-all-img-wrapper {
+    display: block;
+    position: relative;
+    width: 13px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+    margin-left: 22px;
+    top: 12px;
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -60px -220px;
+}
+
+.switch-select-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    width: 123px;
+    height: 38px;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+}
+
+.switch-select-wrapper:hover {
+    background-color: #ddd;
+}
+
+.switch-select-img-wrapper {
+    display: block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+    margin-left: 22px;
+    top: 12px;
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -120px 0;
+}
+
+.play-select-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    width: 123px;
+    height: 38px;
+    border: 1px solid #c9c9c9;
+    border-radius: 2px;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+}
+
+.play-select-wrapper:hover {
+    background-color: #ddd;
+}
+
+.play-select-img-wrapper {
+    display: block;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+    margin-left: 22px;
+    top: 12px;
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -20px 0;
+}
+
+.operation-button-wrapper {
+    display: block;
+    position: relative;
+    background-color: transparent;
+    float: left;
+    border: none;
+    outline: none;
+    width: 66px;
+    height: 38px;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+}
+
+/*下面的是表单样式*/
+.real-song-list-outer-wrapper {
+    display: block;
+    position: relative;
+    margin: 0 10px 10px;
+}
+
+.song-list-header-wrapper {
+    display: block;
+    position: relative;
+    margin: 5px;
+    padding: 0;
+    line-height: 27px;
+    height: 37px;
+}
+
+.song-list-header-wrapper li {
+    cursor: default;
+}
+
+.header-edit-wrapper {
+    display: block;
+    position: relative;
+    width: 28px;
+    height: 30px;
+    float: left;
+    margin: 1px 0 0 1px;
+}
+
+.header-edit-wrapper input[type="checkbox"] + label {
+    margin: 10px 0 0 6px;
+}
+
+/*复选框样式*/
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label {
+    display: block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    border: 1px solid black;
+}
+
+input[type="checkbox"]:checked + label {
+    background: url("http://www.ieasygo.top/common/img/ui5.png") -60px -100px;
+    border: 1px solid #31c27c;
+}
+
+.header-name-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+.header-singer-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0 0 5px;
+}
+
+.header-album-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0 0 5px;
+}
+
+.header-time-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    color: #999;
+    font-size: 14px;
+    margin: 5px 0 0 5px;
+    width: 50px;
+}
+
+/*下面的是搜索歌曲列表的样式*/
+.song-list-content-outer-wrapper {
+    display: block;
+    position: relative;
+    margin: 0 5px 0 5px;
+}
+
+.one-song-outer-wrapper {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: -moz-max-content;
+    height: 35px;
+}
+
+/*设置一首歌的字体样式*/
+.one-song-outer-wrapper a {
+    display: block;
+    position: relative;
+    float: left;
+    color: #000;
+    /*color: red;*/
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 30px;
+    font-family: 仿宋, serif;
+    font-weight: bold;
+}
+
+/*圆括号内字体样式*/
+.one-song-outer-wrapper .parentheses_wrapper {
+    cursor: default;
+    color: rgba(0, 0, 0, .7);
+    font-size: 11px;
+    font-style: italic;
+}
+
+.song-edit-wrapper {
+    display: block;
+    position: relative;
+    width: 28px;
+    height: 30px;
+    float: left;
+    margin: 1px 0 0 1px;
+}
+
+.song-edit-wrapper input[type="checkbox"] + label {
+    margin: 7px 0 0 6px;
+}
+
+.song-name-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.song-name-wrapper a {
+    cursor: pointer;
+}
+
+.song-name-wrapper a:hover {
+    color: #31c27c;
+}
+
+.song-singer-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+    height: 30px;
+}
+
+.song-singer-wrapper div {
+    float: left;
+    cursor: default;
+    line-height: 30px;
+}
+
+.song-singer-wrapper a {
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.song-singer-wrapper a:hover {
+    color: #31c27c;
+}
+
+.song-album-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.song-album-wrapper a {
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.song-time-wrapper {
+    display: block;
+    position: relative;
+    float: left;
+    margin: 0 0 0 5px;
+    width: 50px;
+}
+
+.song-time-wrapper a {
+    cursor: default;
+}
+
+/*移到一首歌上面显示播放和添加按钮*/
+.one-song-operate-wrapper {
+    display: block;
+    position: relative;
+    width: 90px;
+    height: 30px;
+    float: right;
+}
+
+.one-song-play-wrapper {
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    float: left;
+    background: url("http://www.ieasygo.top/common/img/ui6.png") -8px -8px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.one-song-play-wrapper:hover {
+    background: url("http://www.ieasygo.top/common/img/ui6.png") -48px -8px;
+}
+
+.one-song-add-wrapper {
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 5px 0 0 8px;
+    background: url("http://www.ieasygo.top/common/img/ui6.png") -8px -88px;
+    cursor: pointer;
+}
+
+.one-song-add-wrapper:hover {
+    background: url("http://www.ieasygo.top/common/img/ui6.png") -48px -88px;
+}
+
+/*下面的分页按钮*/
+.change-page-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 726px;
+    height: 50px;
+    margin: 10px auto auto;
+}
+
+.change-page-wrapper {
+    display: block;
+    position: relative;
+    width: 56px;
+    height: 50px;
+    background-color: rgb(221, 221, 221);
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.change-page-wrapper:hover {
+    background-color: rgb(49, 194, 124);
+}

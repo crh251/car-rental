@@ -1,0 +1,132 @@
+.lyric-outer-wrapper {
+    display: block;
+    position: relative;
+    /*border: 1px solid black;*/
+    width: 450px;
+    height: 900px;
+    float: right;
+}
+
+.needle-wrapper {
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 150px;
+    background: url("../../img/needle.png");
+    background-size: 100px 150px;
+    z-index: 10;
+    left: 215px;
+    transform-origin: 20px 20px;
+}
+
+.needle-play-wrapper {
+    animation: rotate-needle-resume 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.needle-pause-wrapper {
+    animation: rotate-needle-pause 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes rotate-needle-pause {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(-25deg);
+    }
+}
+
+@keyframes rotate-needle-resume {
+    from {
+        -webkit-transform: rotate(-25deg);
+    }
+    to {
+        -webkit-transform: rotate(0deg);
+    }
+}
+
+.song-circle-outer-wrapper {
+    display: block;
+    position: relative;
+    width: 280px;
+    height: 280px;
+    background-image: url("../../img/circle.png");
+    background-size: 280px 280px;
+    margin: auto;
+    top: 80px;
+    animation: circle-rotate 10s infinite;
+    -moz-animation: circle-rotate 10s infinite; /* Firefox */
+    -webkit-animation: circle-rotate 10s infinite normal linear; /* Safari and Chrome */
+    -o-animation: circle-rotate 10s infinite; /* Opera */
+}
+
+@keyframes circle-rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.song-photo-wrapper {
+    display: block;
+    position: relative;
+    width: 190px;
+    height: 190px;
+    clip-path: circle(95px);
+    /*background-image: url("../../img/song.jpg");*/
+    background-size: 190px 190px;
+    margin: auto;
+    top: 45px;
+}
+
+.lyric-song-info-wrapper {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 15px;
+    /*color: rgba(0, 0, 0, .7);*/
+    color: #c9c9c9;
+}
+
+.lyric-roll-outer-wrapper {
+    width: 350px;
+    height: 470px;
+    /*border: 1px solid black;*/
+    margin: 100px auto;
+
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.lyric-roll-outer-wrapper::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+}
+
+.lyric-roll-outer-wrapper::-webkit-scrollbar-track {
+    width: 4px;
+    border-radius: 2px;
+    /*background-color: #c9c9c9;*/
+    background-color: transparent;
+}
+
+/*滑块样式*/
+.lyric-roll-outer-wrapper::-webkit-scrollbar-thumb {
+    display: block;
+    width: 4px;
+    height: 50px;
+    border-radius: 2px;
+    background-color: #c9c9c9;
+    /*background-color: transparent;*/
+}
+
+.lyric-roll-wrapper {
+    text-align: center;
+    line-height: 28px;
+    color: #c9c9c9;
+}

@@ -1,0 +1,76 @@
+<div id="car_rental">
+
+    <div style="font-size: 25px">
+        当前登录用户：{{username}}
+        <a style="font-size: 10px;cursor: pointer;color: #4490f7;text-decoration: underline;"
+           onclick="console.log('login out!');localStorage.clear();window.open(car_rental.loginUrl, '_self');">[退出登录]</a>
+    </div>
+
+    <div class="car_model_list" v-bind:style="{ width: width + 32 + 'px', left: left + 'px', top: top + 'px' }">
+        当前可预订车辆：
+        <ul>
+            <li v-for="item in car_model_list">
+                {{ item }} <a v-on:click="open_car_rental_window(item)"
+                              style="font-size: 15px;cursor: pointer;color: #4490f7">[预订]</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="car_rental_list"
+         v-bind:style="{ width: width + 32 + 'px', left: left - 250 + 'px', top: top + 200 + 'px' }">
+        <a style="font-size: 25px;">当前已预订车辆：</a><br>
+        <table border="1" cellspacing="0" style="white-space: nowrap;">
+            <thead>
+            <tr>
+                <th>型号</th>
+                <th>开始使用时间</th>
+                <th>结束使用时间</th>
+                <th>状态</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="car_rental in car_rental_list">
+                <td>{{car_rental.carModel}}</td>
+                <td>{{car_rental.startTime}}</td>
+                <td>{{car_rental.endTime}}</td>
+                <td v-bind:style="{ color: car_rental.status===1 ? 'green' : 'red' }">{{ car_rental.status===1 ?
+                    '已预订':'已取消' }}
+                </td>
+                <td>{{car_rental.createTime}}</td>
+                <td>{{car_rental.updateTime}}</td>
+                <td style="font-size: 10px;text-decoration: underline;color: #4490f7;cursor: pointer"
+                    v-on:click="cancel_car_rental(car_rental.id)">{{ car_rental.status===1 ? '取消预订':'' }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div v-bind:style="{ display: display_car_rental ? 'block' : 'none', left: left + 'px', top: top + 'px' }"
+         class="car_rental_outer">
+
+        <!--关闭弹出的登录框-->
+        <div class="close-car-rental-wrapper" v-on:click="close_car_rental_window"></div>
+
+        <div style="display: block;position:relative;margin: auto;padding: 10px 0 0 20px">
+            预订车辆型号：{{car_rental_model}}
+        </div>
+
+        <div style="padding: 10px 0 0 20px">
+            开始使用时间：
+            <input v-model="start_time" type="datetime-local">
+        </div>
+
+        <div style="padding: 10px 0 0 20px">
+            结束使用时间：
+            <input v-model="end_time" type="datetime-local">
+        </div>
+
+        <input type="submit" class="car_rental_submit_wrapper" value="立即预订" v-on:click="start_car_rental">
+    </div>
+
+</div>

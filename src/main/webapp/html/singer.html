@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>歌手</title>
+    <script src="../js/global.js"></script>
+    <script src="../vue.js"></script>
+    <script src="../axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../component/popUserInfo/popUserInfo.css">
+    <link rel="stylesheet" type="text/css" href="../component/search/search.css">
+    <link rel="stylesheet" type="text/css" href="../component/songList/songList.css">
+</head>
+<body>
+<!--点击弹出用户头像组件-->
+<script>
+    ajaxGet("../component/popUserInfo/popUserInfo.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/popUserInfo/popUserInfo.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+
+</script>
+
+<!--搜索框和建议框组件-->
+<script>
+    ajaxGet("../component/search/search.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/search/search.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+            let setSearchPosition = function () {
+                search_outer.width = 330;
+                search_outer.left = (document.documentElement.clientWidth - search_outer.width) / 2;
+                search_outer.top = 20;
+            };
+            setSearchPosition();
+            window.addEventListener("resize", setSearchPosition);
+        })
+    });
+
+</script>
+
+<!--歌曲列表组件-->
+<script>
+    ajaxGet("../component/songList/songList.html", function (xhr) {
+        document.body.innerHTML += xhr.responseText;
+        ajaxGet("../component/songList/songList.js", function (xhr) {
+            let script = document.createElement('script');
+            script.innerHTML = xhr.responseText;
+            document.body.appendChild(script);
+        })
+    });
+
+</script>
+
+<script>
+    let getSongListData = function () {
+        let mid = getParams("mid");
+        if (mid === null) {
+            return [];
+        }
+        axios({
+            method: 'get',
+            url: webUrl + '/singerSongs',
+            params: {
+                mid: mid,
+            }
+        }).then(response => {
+
+            // console.log(response);
+            // return;
+
+            let songsTemp = response.data.data.list;
+            let songs = [];
+            console.log("调试中");
+            for (let i = 0; i < songsTemp.length; i++) {
+                let songTemp = songsTemp[i].musicData;
+                let song = {};
+                song.id = songTemp.songid;
+                song.mid = songTemp.songmid;
+                let name = songTemp.songname;
+                let position = name.search(/\(.+\)$/g);
+                if (position > -1) {
+                    let left_name = name.substring(0, position);
+                    let right_name = name.substring(position, name.length);
+                    name = left_name + "<span class='parentheses_wrapper'>" + right_name + "</span>&nbsp;";
+                }
+                song.name = name;
+                song.album = songTemp.albumname;
+                let interval = parseInt(songTemp.interval);
+                song.time = '';
+                if (parseInt(interval / 60) <= 9) {
+                    song.time += '0';
+                }
+                song.time += parseInt(interval / 60) + ':';
+                if (interval % 60 <= 9) {
+                    song.time += '0';
+                }
+                song.time += interval % 60;
+                //设置歌手
+                let singersTemp = songTemp.singer;
+                let singers = [];
+                for (let j = 0; j < singersTemp.length; j++) {
+                    let tempSinger = singersTemp[j];
+                    let singer = {};
+                    singer.id = tempSinger.id;
+                    singer.mid = tempSinger.mid;
+                    singer.name = tempSinger.name;
+                    singers.push(singer);
+                }
+                song.singers = singers;
+                songs.push(song);
+            }
+            song_list_outer.songs = songs;
+            song_list_outer.height = song_list_outer.songs.length * 30 + 360;
+            song_list_outer.showSongList();
+        }).catch(error => console.log(error));
+    }
+
+</script>
+
+</body>
+</html>

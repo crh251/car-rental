@@ -1,0 +1,139 @@
+<!------------------------------------下面的是歌曲列表的html代码------------------------------------->
+<div class="result-outer-wrapper"
+     v-bind:style="{ width: width + 'px', height: height + 'px', left: left + 'px', top: top + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+     id="song-list-outer" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+    <div v-bind:style="{ border: isShowBorder ? '1px solid green' : 'none' }"
+         class="operation-outer-wrapper">
+        <div v-on:click.stop="playAllSong"
+             class="play-all-wrapper">
+            <div class="play-all-img-wrapper"></div>
+            <input type="button" class="operation-button-wrapper" value="播放全部">
+        </div>
+        <div v-bind:style="{ width: isSelectDisplay ? '150px' : '123px' }"
+             class="switch-select-wrapper">
+            <div class="switch-select-img-wrapper"></div>
+            <input type="button"
+                   class="operation-button-wrapper"
+                   v-on:click.stop="isSelectDisplay = !isSelectDisplay"
+                   v-bind:style="{ width: isSelectDisplay ? '95px' : '66px' }"
+                   v-bind:value="isSelectDisplay ? '取消批量操作' : '批量操作'"
+            >
+        </div>
+        <div v-on:click.stop="playSelect"
+             v-bind:style="{ display: isSelectDisplay ? 'block' : 'none' }"
+             class="play-select-wrapper">
+            <div class="play-select-img-wrapper"></div>
+            <input type="button"
+                   class="operation-button-wrapper"
+                   value="播放选中">
+        </div>
+    </div>
+
+    <div v-bind:style="{ height: height - 86 + 'px', border: isShowBorder ? '1px solid red' : 'none' }"
+         class="real-song-list-outer-wrapper">
+
+        <!--这是歌曲列表的表头信息-->
+        <ul v-bind:style="{ border: isShowBorder ? '1px solid blue' : 'none' }"
+            class="song-list-header-wrapper">
+            <li v-bind:style="{ border: isShowBorder ? '1px solid black' : 'none' }"
+                class="header-edit-wrapper">
+                <input type="checkbox" id="select-all-checkbox"/>
+                <label for="select-all-checkbox"
+                       v-bind:style="{ display: isSelectDisplay ? 'block' : 'none' }"
+                >
+                </label>
+            </li>
+            <li v-bind:style="{ width: (width - 150) * 0.4 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                class="header-name-wrapper">歌曲
+            </li>
+            <li v-bind:style="{ width: (width - 150) * 0.3 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                class="header-singer-wrapper">歌手
+            </li>
+            <li v-bind:style="{ width: (width - 150) * 0.3 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                class="header-album-wrapper">专辑
+            </li>
+            <li v-bind:style="{ border: isShowBorder ? '1px solid black' : 'none' }"
+                class="header-time-wrapper">时长
+            </li>
+        </ul>
+
+        <!--下面的才是真正的歌曲列表-->
+        <div v-bind:style="{ height: height - 200 + 'px', border: isShowBorder ? '1px solid purple' : 'none' }"
+             class="song-list-content-outer-wrapper">
+            <ul v-for="(song, theIndex) in songs"
+                v-on:mouseover="mouseIndex = theIndex"
+                v-on:mouseout="mouseIndex = -1"
+                v-bind:style="{ border: isShowBorder ? '1px solid yellow' : 'none' }"
+                class="one-song-outer-wrapper">
+                <li v-bind:style="{ border: isShowBorder ? '1px solid black' : 'none' }"
+                    class="song-edit-wrapper">
+                    <input type="checkbox"
+                           v-bind:id="song.mid"/>
+                    <label v-bind:for="song.mid"
+                           v-bind:style="{ display: isSelectDisplay ? 'block' : 'none' }">
+                    </label>
+                </li>
+                <!--歌曲名-->
+                <li v-bind:style="{ width: (width - 150) * 0.4 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                    class="song-name-wrapper">
+                    <a v-bind:title="'歌曲 ' + song.name"
+                       v-on:click.stop="openSongInfo(song.id, song.mid)"
+                       v-html="song.name">
+                    </a>
+                    <div v-bind:style="{ display: mouseIndex === theIndex ? 'block' : 'none' ,border: isShowBorder ? '1px solid red' : 'none' }"
+                         class="one-song-operate-wrapper">
+                        <div v-bind:style="{ border: isShowBorder ? '1px solid darkcyan' : 'none' }"
+                             title="播放歌曲"
+                             v-on:click.stop="playSong(song.id ,song.mid)"
+                             class="one-song-play-wrapper"></div>
+                        <div v-bind:style="{ border: isShowBorder ? '1px solid aqua' : 'none' }"
+                             title="添加到播放列表"
+                             v-on:click.stop="addSong(song.id ,song.mid)"
+                             class="one-song-add-wrapper"></div>
+                    </div>
+                </li>
+                <!--歌手名-->
+                <li v-bind:style="{ width: (width - 150) * 0.3 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                    class="song-singer-wrapper">
+                    <div v-for="(singer, index) in song.singers">
+                        <div v-if="index > 0">&nbsp;/&nbsp;</div>
+                        <a v-bind:title="'歌手 ' + singer.name"
+                           v-on:click.stop="openSingerInfo(singer.id, singer.mid)">
+                            {{singer.name}}
+                        </a>
+                    </div>
+                </li>
+                <li v-bind:style="{ width: (width - 150) * 0.3 + 'px', border: isShowBorder ? '1px solid black' : 'none' }"
+                    v-bind:title="'专辑 ' + song.album"
+                    class="song-album-wrapper">
+                    <a>
+                        {{ song.album }}
+                    </a>
+                </li>
+                <li v-bind:style="{ border: isShowBorder ? '1px solid black' : 'none' }"
+                    v-bind:title="'时长 ' + song.time"
+                    class="song-time-wrapper">
+                    <a>
+                        {{ song.time }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="change-page-outer-wrapper">
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+            <div class="change-page-wrapper"></div>
+        </div>
+
+    </div>
+</div>

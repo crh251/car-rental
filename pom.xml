@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.4</version>
+        <version>2.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -88,50 +88,53 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>3.0.10</version>
-            <type>pom</type>
-        </dependency>
+
+        <!-- SPOCK TEST -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.codehaus.groovy</groupId>-->
+        <!--            <artifactId>groovy-all</artifactId>-->
+        <!--            <version>3.0.10</version>-->
+        <!--            <type>pom</type>-->
+        <!--        </dependency>-->
 
         <!-- test -->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-spring</artifactId>
-            <version>2.2-M1-groovy-4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>4.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>2.2-M1-groovy-4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.blogspot.toomuchcoding</groupId>
-            <artifactId>spock-subjects-collaborators-extension</artifactId>
-            <version>2.0.0</version>
-            <scope>test</scope>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.spockframework</groupId>-->
+        <!--            <artifactId>spock-spring</artifactId>-->
+        <!--            <version>2.2-M1-groovy-4.0</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.junit.jupiter</groupId>-->
+        <!--            <artifactId>junit-jupiter-engine</artifactId>-->
+        <!--            <version>5.8.2</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.mockito</groupId>-->
+        <!--            <artifactId>mockito-inline</artifactId>-->
+        <!--            <version>4.4.0</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.spockframework</groupId>-->
+        <!--            <artifactId>spock-core</artifactId>-->
+        <!--            <version>2.2-M1-groovy-4.0</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.blogspot.toomuchcoding</groupId>-->
+        <!--            <artifactId>spock-subjects-collaborators-extension</artifactId>-->
+        <!--            <version>2.0.0</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+
     </dependencies>
 
     <build>
@@ -183,37 +186,38 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.13.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>addTestSources</goal>
-                            <goal>generateTestStubs</goal>
-                            <goal>compileTests</goal>
-                            <goal>removeTestStubs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <testSources>
-                        <testSource>
-                            <directory>${project.basedir}/src/test/groovy</directory>
-                            <includes>
-                                <include>**/*.groovy</include>
-                            </includes>
-                        </testSource>
-                        <testSource>
-                            <directory>${project.build.directory}/generated-test-sources/contracts</directory>
-                            <includes>
-                                <include>**/*.groovy</include>
-                            </includes>
-                        </testSource>
-                    </testSources>
-                </configuration>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.codehaus.gmavenplus</groupId>-->
+            <!--                <artifactId>gmavenplus-plugin</artifactId>-->
+            <!--                <version>1.13.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            <goal>addTestSources</goal>-->
+            <!--                            <goal>generateTestStubs</goal>-->
+            <!--                            <goal>compileTests</goal>-->
+            <!--                            <goal>removeTestStubs</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    <testSources>-->
+            <!--                        <testSource>-->
+            <!--                            <directory>${project.basedir}/src/test/groovy</directory>-->
+            <!--                            <includes>-->
+            <!--                                <include>**/*.groovy</include>-->
+            <!--                            </includes>-->
+            <!--                        </testSource>-->
+            <!--                        <testSource>-->
+            <!--                            <directory>${project.build.directory}/generated-test-sources/contracts</directory>-->
+            <!--                            <includes>-->
+            <!--                                <include>**/*.groovy</include>-->
+            <!--                            </includes>-->
+            <!--                        </testSource>-->
+            <!--                    </testSources>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
+
         </plugins>
     </build>
 
