@@ -1,8 +1,8 @@
 # CAR RENTAL 汽车租赁预订
 
-项目访问链接：<https://ieasygo.top/car_rental_h5/html/rental.html>
+项目访问链接：<https://ljhx.fun/car_rental_h5/html/rental.html>
 
-Swagger Api：<https://ieasygo.top/car_rental/swagger-ui.html>
+Swagger Api：<https://ljhx.fun/car_rental/swagger-ui.html>
 
 ***测试账号***
 
@@ -82,7 +82,8 @@ CREATE TABLE `car_rental_info` (
 ## 接口 Api
 
 ### 
-**URL:** http://ieasygo.top/car_rental/user/login
+
+**URL:** http://ljhx.fun/car_rental/user/login
 
 **Type:** POST
 
@@ -101,7 +102,7 @@ password|string|密码|true|123
 
 **Request-example:**
 ```
-curl -X POST -i http://ieasygo.top/car_rental/user/login --data 'username=t1&password=123'
+curl -X POST -i http://ljhx.fun/car_rental/user/login --data 'username=t1&password=123'
 ```
 **Response-fields:**
 
@@ -129,7 +130,8 @@ data|object|登录返回用户信息|-
 ```
 
 ### 
-**URL:** http://ieasygo.top/car_rental/rental/order
+
+**URL:** http://ljhx.fun/car_rental/rental/order
 
 **Type:** POST
 
@@ -148,7 +150,7 @@ endTime|date|结束使用时间[yyyy-MM-dd HH:mm]，需要大于当前时间|tru
 
 **Request-example:**
 ```
-curl -X POST -i http://ieasygo.top/car_rental/rental/order --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9&startTime=2021-03-22 08:00&carModel=BMW 650&endTime=2021-03-22 17:00'
+curl -X POST -i http://ljhx.fun/car_rental/rental/order --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9&startTime=2021-03-22 08:00&carModel=BMW 650&endTime=2021-03-22 17:00'
 ```
 **Response-fields:**
 
@@ -188,7 +190,8 @@ data|object|车辆预订记录|-
 ```
 
 ### 
-**URL:** http://ieasygo.top/rental/car_rental/cancel
+
+**URL:** http://ljhx.fun/rental/car_rental/cancel
 
 **Type:** POST
 
@@ -207,7 +210,7 @@ carRentalId|int64|车辆预订记录|true|1
 
 **Request-example:**
 ```
-curl -X POST -i http://ieasygo.top/car_rental/rental/cancel --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9&carRentalId=1'
+curl -X POST -i http://ljhx.fun/car_rental/rental/cancel --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9&carRentalId=1'
 ```
 **Response-fields:**
 
@@ -225,7 +228,8 @@ message|string|响应信息|success
 ```
 
 ### 
-**URL:** http://ieasygo.top/car_rental/rental/list_car_model
+
+**URL:** http://ljhx.fun/car_rental/rental/list_car_model
 
 **Type:** GET
 
@@ -237,7 +241,7 @@ message|string|响应信息|success
 
 **Request-example:**
 ```
-curl -X GET -i http://ieasygo.top/car_rental/rental/list_car_model
+curl -X GET -i http://ljhx.fun/car_rental/rental/list_car_model
 ```
 **Response-fields:**
 
@@ -261,7 +265,8 @@ dataList|List|车辆型号列表|`["Toyota Camry","BMW 650"]`
 ```
 
 ### 
-**URL:** http://ieasygo.top/car_rental/rental/my_car_rental
+
+**URL:** http://ljhx.fun/car_rental/rental/my_car_rental
 
 **Type:** POST
 
@@ -279,7 +284,7 @@ token|string|token|false|5b019ba8-71f0-41b2-849a-e678184117a9
 
 **Request-example:**
 ```
-curl -X POST -i http://ieasygo.top/car_rental/rental/my_car_rental --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9'
+curl -X POST -i http://ljhx.fun/car_rental/rental/my_car_rental --data 'token=5b019ba8-71f0-41b2-849a-e678184117a9'
 ```
 **Response-fields:**
 
